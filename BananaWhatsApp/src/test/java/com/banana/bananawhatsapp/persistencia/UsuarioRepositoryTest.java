@@ -17,14 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfig.class})
-@ActiveProfiles("dev")
+//@ActiveProfiles("dev")
+@ActiveProfiles("prod")
 class UsuarioRepositoryTest {
     @Autowired
     IUsuarioRepository repo;
 
     @Test
     void dadoUnUsuarioValido_cuandoCrear_entoncesUsuarioValido() throws Exception {
-        Usuario nuevo = new Usuario(null, "Ricardo", "r@r.com", LocalDate.now(), true);
+        Usuario nuevo = new Usuario(null, "Maria", "m@m.com", LocalDate.now(), true);
         repo.crear(nuevo);
 
         assertThat(nuevo, notNullValue());
@@ -33,7 +34,7 @@ class UsuarioRepositoryTest {
 
     @Test
     void dadoUnUsuarioNOValido_cuandoCrear_entoncesExcepcion() {
-        Usuario nuevo = new Usuario(null, "Ricardo", "r", LocalDate.now(), true);
+        Usuario nuevo = new Usuario(null, "Maria", "m", LocalDate.now(), true);
         assertThrows(Exception.class, () -> {
             repo.crear(nuevo);
         });

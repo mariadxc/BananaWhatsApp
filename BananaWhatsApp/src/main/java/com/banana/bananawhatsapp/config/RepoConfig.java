@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+/*leemos las propiedades*/
 @PropertySource("classpath:application.properties")
 public class RepoConfig {
 

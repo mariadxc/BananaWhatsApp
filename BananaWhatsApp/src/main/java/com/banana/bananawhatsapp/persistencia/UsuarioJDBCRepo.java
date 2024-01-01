@@ -56,6 +56,7 @@ public class UsuarioJDBCRepo implements IUsuarioRepository {
 
     @Override
     public boolean borrar(Usuario usuario) throws SQLException {
+        /*hacer por transacción para borrar los mensajes - +1 sentencia sql*/
         return false;
     }
 

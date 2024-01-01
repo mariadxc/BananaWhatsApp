@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({RepoConfig.class, ControllerConfig.class})
+//@ComponentScan({"com.banana.bananawhatsapp.persistencia"})
 @ComponentScan({"com.banana.bananawhatsapp.servicios"})
 public class SpringConfig {
 

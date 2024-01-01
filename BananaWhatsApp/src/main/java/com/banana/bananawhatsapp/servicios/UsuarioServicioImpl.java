@@ -21,11 +21,13 @@ public class UsuarioServicioImpl implements IServicioUsuarios {
             usuario.valido();
             usuarioRepo.crear(usuario);
         } catch (Exception e) {
+//        } catch (SQLException e) {
             e.printStackTrace();
             throw new UsuarioException("Error en la creación: " + e.getMessage());
         }
 
         return usuario;
+//        return null;
     }
 
     @Override
