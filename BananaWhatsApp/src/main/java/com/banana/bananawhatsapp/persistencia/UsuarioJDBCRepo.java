@@ -51,7 +51,32 @@ public class UsuarioJDBCRepo implements IUsuarioRepository {
 
     @Override
     public Usuario actualizar(Usuario usuario) throws SQLException {
-        return null;
+        String sql = "UPDATE usuario u SET u.activo = ?, u.alta = ? , u.email = ?, u.nombre = ? WHERE u.id = ?";
+
+        try (
+                Connection conn = DriverManager.getConnection(db_url);
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            usuario.valido();
+
+            stmt.setBoolean(1, usuario.isActivo());
+            stmt.setDate(2, Date.valueOf(usuario.getAlta()));
+            stmt.setString(3, usuario.getEmail());
+            stmt.setString(4, usuario.getNombre());
+            stmt.setInt(5, usuario.getId());
+
+            int rows = stmt.executeUpdate();
+            stmt.close();
+            System.out.println("Usuario actualizado: " + usuario);
+
+        } catch (UsuarioException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException(e);
+        }
+        return usuario;
     }
 
     @Override

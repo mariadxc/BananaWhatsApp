@@ -20,15 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfig.class})
-@ActiveProfiles("dev")
-//@ActiveProfiles("prod")
+//@ActiveProfiles("dev")
+@ActiveProfiles("prod")
 class ServicioUsuariosTest {
 
     @Autowired
     IServicioUsuarios servicio;
-
-//    @Autowired
-//    UsuarioRepositoryParaTests usuarioRepo;
 
     @Test
     void dadoUnUsuarioValido_cuandoCrearUsuario_entoncesUsuarioValido() throws Exception {
@@ -38,6 +35,7 @@ class ServicioUsuariosTest {
 
         assertThat(nuevo, notNullValue());
         assertThat(nuevo.getId(), greaterThan(0));
+        System.out.println("Usuario insertado: " + nuevo);
 
 //        Usuario verUser = usuarioRepo.getById(nuevo.getId());
 //        assertThat(verUser, equalTo(nuevo));

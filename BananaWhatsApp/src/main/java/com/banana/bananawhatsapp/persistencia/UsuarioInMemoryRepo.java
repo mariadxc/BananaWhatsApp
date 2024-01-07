@@ -3,6 +3,8 @@ package com.banana.bananawhatsapp.persistencia;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import lombok.Setter;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,14 +12,15 @@ import java.util.Set;
 public class UsuarioInMemoryRepo implements IUsuarioRepository {
 
     Set<Usuario> usuarios = new HashSet<>();
-    private Integer num = 0;
+    private static Integer num = 0;
+
 
     @Override
     public Usuario crear(Usuario usuario) throws SQLException {
+        System.out.println("num: "+num);
         usuario.valido();
         usuario.setId(num + 1);
         usuarios.add(usuario);
-
         return usuario;
     }
 
