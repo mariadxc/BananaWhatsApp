@@ -61,18 +61,29 @@ class MensajeRepositoryTest {
 
     @Test
     void dadoUnUsuarioValido_cuandoObtener_entoncesListaMensajes() throws SQLException {
-        Usuario remitente = new Usuario(null, "Remitente", "r@r.com", LocalDate.now(), true);
-        repoUsuario.crear(remitente);
-        Usuario destinatario = new Usuario(null, "Destinatario", "d@d.com", LocalDate.now(), true);
-        repoUsuario.crear(destinatario);
-        System.out.println(remitente);
-        System.out.println(destinatario);
+        Usuario usr1 = new Usuario(null, "usr1", "u1@r.com", LocalDate.now(), true);
+        repoUsuario.crear(usr1);
+        Usuario usr2 = new Usuario(null, "usr2", "u2@d.com", LocalDate.now(), true);
+        repoUsuario.crear(usr2);
+        Usuario usr3 = new Usuario(null, "usr3", "u3@d.com", LocalDate.now(), true);
+        repoUsuario.crear(usr3);
+        Usuario usr4 = new Usuario(null, "usr7", "u4@d.com", LocalDate.now(), true);
+        repoUsuario.crear(usr4);
 
-        Mensaje nuevoMensaje = new Mensaje(null, remitente, destinatario, "Cuerpo del mensaje", LocalDate.now());
+        Mensaje nuevoMensaje = new Mensaje(null, usr1, usr2, "Menaje de usr1 a usr2", LocalDate.now());
         repoMensaje.crear(nuevoMensaje);
-        System.out.println(nuevoMensaje);
+        Mensaje nuevoMensaje2 = new Mensaje(null, usr1, usr3, "Menaje de usr1 a usr3", LocalDate.now());
+        repoMensaje.crear(nuevoMensaje2);
+        Mensaje nuevoMensaje3 = new Mensaje(null, usr2, usr1, "Menaje de usr2 a usr1", LocalDate.now());
+        repoMensaje.crear(nuevoMensaje3);
+        Mensaje nuevoMensaje4 = new Mensaje(null, usr4, usr1, "Menaje de usr1 a usr3", LocalDate.now());
+        repoMensaje.crear(nuevoMensaje4);
+        Mensaje nuevoMensaje5 = new Mensaje(null, usr1, usr4, "Menaje de usr2 a usr1", LocalDate.now());
+        repoMensaje.crear(nuevoMensaje5);
+        Mensaje nuevoMensaje6 = new Mensaje(null, usr4, usr1, "Menaje de usr1 a usr3", LocalDate.now());
+        repoMensaje.crear(nuevoMensaje6);
 
-        List<Mensaje> mensajes = repoUsuario.obtener(remitente, destinatario);
+        List<Mensaje> mensajes = repoMensaje.obtener(usr1);
 
         System.out.println(mensajes);
         assertThat(mensajes.size(), greaterThan(0));
