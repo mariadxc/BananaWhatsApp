@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -59,7 +60,22 @@ class MensajeRepositoryTest {
     }
 
     @Test
-    void dadoUnUsuarioValido_cuandoObtener_entoncesListaMensajes() {
+    void dadoUnUsuarioValido_cuandoObtener_entoncesListaMensajes() throws SQLException {
+        Usuario remitente = new Usuario(null, "Remitente", "r@r.com", LocalDate.now(), true);
+        repoUsuario.crear(remitente);
+        Usuario destinatario = new Usuario(null, "Destinatario", "d@d.com", LocalDate.now(), true);
+        repoUsuario.crear(destinatario);
+        System.out.println(remitente);
+        System.out.println(destinatario);
+
+        Mensaje nuevoMensaje = new Mensaje(null, remitente, destinatario, "Cuerpo del mensaje", LocalDate.now());
+        repoMensaje.crear(nuevoMensaje);
+        System.out.println(nuevoMensaje);
+
+        List<Mensaje> mensajes = repoUsuario.obtener(remitente, destinatario);
+
+        System.out.println(mensajes);
+        assertThat(mensajes.size(), greaterThan(0));
     }
 
     @Test
